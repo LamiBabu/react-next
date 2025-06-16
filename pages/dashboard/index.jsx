@@ -2,7 +2,7 @@ import React from 'react'
 
 function index() {
   return (
-    <div>dashboard</div>
+    <h1>dashboard</h1>
   )
 }
 

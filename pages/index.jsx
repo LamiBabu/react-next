@@ -2,7 +2,8 @@ import Head from "next/head";
 import Image from "next/image";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
-import {useState} from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -16,33 +17,29 @@ const geistMono = Geist_Mono({
 
 export default function Home() {
  
-  const [name,  setName]=useState("");
-  console.log("Name",name);
-  const [password, setPassword]=useState("");
-  console.log("Password",password);
-  function handleName(event){
-    setName(event.target.value);
-  }
-  function handlePass(event){
-    setPassword(event.target.value);
-  }
-  function handleSubmit(){
-    if (password.length < 8 ){
-      alert("password must be at least 8 characters")
-      return;
-      console.log('success');
-    }
-  }
-  return (
-    <>
-     <h1>Hi {state}</h1>
-     <h2> your email{state}</h2>
-     <input type='text' onChange={handleName}/>
-     <p>enter your username</p><input type='text' onChange={handleName}/>
-     <p>enter your password</p><input type='password' onChange={handlePass}/>
-     <br/>
-     <button onClick={handleSubmit}>submit</button>
+  useEffect(() => {
+    const postData = async() => {
+      try {
 
-    </>
+    const ax=await axios.post("http://localhost:3001/createdata", {
+      "name": "blakpjohn",
+      "city": "ekm",
+      "age": 19
+    });
+    console.log("Response from server", ax.data);
+  } catch (error){
+    console.error("Axios Error:", error.message);
+  }
+};
+
+postData();
+}, []);
+
+  return (
+    <div>
+      <h1>POST Request Sent</h1>
+
+    </div>
+
   );
 }
